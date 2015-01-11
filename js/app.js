@@ -31,19 +31,19 @@ Enemy.prototype.render = function() {
 var Player = function() {
   this.sprite = 'images/char-boy.png';
 };
-player.prototype = handleInput(){
-
+Player.prototype.update = function(handleInput){
 }
 // Draw the *Player on the screen, required method for game
 Player.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y); //copied from Enemy
 }
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = ['images/enemy-bug.png'];
-var player = 'images/char-boy.png';
+//var enemy = Enemy();
+var allEnemies = ['images/enemy-but.png'];
+var player = Player();
 
 
 // This listens for key presses and sends the keys to your
