@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -29,6 +29,7 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
+//do I need to initialize the player.prototype?  Player.prototype.init = function(x, y)
   this.sprite = 'images/char-boy.png';
 };
 Player.prototype.update = function(handleInput){
@@ -42,8 +43,11 @@ Player.prototype.render = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 //var enemy = Enemy();
-var allEnemies = ['images/enemy-but.png'];
-var player = Player();
+var enemy1 = new Enemy( 2, 10);
+var enemy2 = new Enemy( );
+var enemy3 = new Enemy( );
+var allEnemies = [enemy1,enemy2,enemy3];
+var player = new Player();
 
 
 // This listens for key presses and sends the keys to your
