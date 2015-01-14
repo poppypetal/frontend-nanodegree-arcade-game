@@ -1,7 +1,10 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+
+this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
+
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -19,7 +22,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 //end Enemy js
 
 
@@ -29,23 +32,26 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-//do I need to initialize the player.prototype?  Player.prototype.init = function(x, y)
+  this.x = 200, this.y =400;
+//  Player.handleInput(allowedKeys[e.keyCode]);
   this.sprite = 'images/char-boy.png';
 };
-Player.prototype.update = function(handleInput){
-}
+//player.handleInput(allowedKeys[e.keyCode]);
+//Player.handelInput = function(player){};
+Player.prototype.update = function(){
+};
 // Draw the *Player on the screen, required method for game
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y); //copied from Enemy
-}
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 //var enemy = Enemy();
-var enemy1 = new Enemy( 2, 10);
-var enemy2 = new Enemy( );
-var enemy3 = new Enemy( );
+var enemy1 = new Enemy();
+var enemy2 = new Enemy();
+var enemy3 = new Enemy();
 var allEnemies = [enemy1,enemy2,enemy3];
 var player = new Player();
 
@@ -59,6 +65,52 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
+//if (ready){
     player.handleInput(allowedKeys[e.keyCode]);
+//  }
 });
+
+
+
+
+//there are 5 (width) x 6 (height) squares in the scene
+
+//dimka: each square is 101 x 83 pixels
+
+/*you can use Math.random() to generate a random speed for each bug
+
+dimka: and you should also use Math.random() to set the y position for each bug
+
+temp = Math.random();
+
+temp2=Math.random();
+
+console.log(temp);
+
+console.log(temp2);
+
+dimka: you should see different numbers because Math.random() generates a different number every time
+
+dimka: so when you call:
+
+dimka: enemy1= new Enemy(); enemy2= new Enemy(); enemy3= new Enemy();
+
+→this.y = Math.random()
+
+dimka: each time when you call Enemy() you will call Math.random() which will give you a different number
+
+dimka: Almost
+
+→this.speed=Math.random()
+
+dimka: Math.random() generates a number between 0 and 1
+
+dimka: so you will have to manipulate it to get a number in the range you want
+
+dimka: BTW, our time is up so we will have to wrap up
+
+→this.speed= function(Math.random * dt)
+
+
+dimka: but you can read more about Math.random() here: http://www.w3schools.com/jsref/jsref_random.asp
+*/
