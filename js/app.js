@@ -3,21 +3,26 @@ var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
-this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
+this.x = 0, this.y = 300 * Math.random(), this.speed = 10 + Math.random()*200;
+
 
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+  if (this.x >= 475){
+    this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
+  }
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-}
+    this.x += (this.speed) * dt ;
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -33,17 +38,53 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function() {
   this.x = 200, this.y =400;
-//  Player.handleInput(allowedKeys[e.keyCode]);
   this.sprite = 'images/char-boy.png';
 };
-//player.handleInput(allowedKeys[e.keyCode]);
-//Player.handelInput = function(player){};
+
+/*Player.prototype.input = function(allowedKeys){
+  if (allowedKeys === 'left'){
+  if(this.x < 0){
+  this.x = 200, this.y = 400;//produces error
+}
+else{this.x - 100;}
+}
+};*/
+
+Player.prototype.handleInput = function(allowedKeys){
+  if (allowedKeys === 'left'){
+    if(this.x < 0){
+      this.x = 200, this.y = 400; // no error, but still can't move
+    }
+    else{this.x - 100;}
+    }
+  };
+/*player hits left key move 5px to the left
+     player hits right key move 5px to the right
+     player hits up key move 5px up
+     player hits down key move 5px down
+
+}*/
+
+
 Player.prototype.update = function(){
+  //if this.y <= 0 reset player to start
 };
 // Draw the *Player on the screen, required method for game
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y); //copied from Enemy
 };
+
+//check for Player/bug collisions
+Player.prototype.checkCollisions = function(){
+  if (this.y == 0){
+  this.x = 200, this.y =400;
+}
+  /*else if(Player(this.x, this.y) === Enemy(this.x, this.y)){
+    reset
+  }*/
+};
+
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -65,9 +106,7 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-//if (ready){
     player.handleInput(allowedKeys[e.keyCode]);
-//  }
 });
 
 
