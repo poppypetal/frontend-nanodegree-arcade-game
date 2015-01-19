@@ -2,11 +2,7 @@
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
-this.x = 0, this.y = 300 * Math.random(), this.speed = 10 + Math.random()*200;
-
-
-
+    this.x = 0, this.y = 300 * Math.random(), this.speed = 10 + Math.random()*200;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -52,22 +48,43 @@ else{this.x - 100;}
 
 Player.prototype.handleInput = function(allowedKeys){
   if (allowedKeys === 'left'){
-    if(this.x < 0){
-      this.x = 200, this.y = 400; // no error, but still can't move
+    if(this.x > 0){
+      this.x -= 15;
     }
-    else{this.x - 100;}
+    else if(this.x < 0){
+      this.x = 200, this.y = 400; //resets player to start when reaches left border
     }
-  };
-/*player hits left key move 5px to the left
-     player hits right key move 5px to the right
-     player hits up key move 5px up
-     player hits down key move 5px down
-
-}*/
-
+  }
+  if (allowedKeys === 'right'){
+    if(this.x > 0){
+      this.x += 15;
+    }
+    else if(this.x > 400){
+      this.x = 200, this.y = 400; //resets player to start when reaches right border
+    }
+  }
+  if (allowedKeys === 'down'){
+    if(this.y > 0){
+      this.y += 15;
+    }
+    else if(this.y >= 430){
+      this.x = 200, this.y = 400; //resets player to start when reaches bottom border
+    }
+  }
+  if (allowedKeys === 'up'){
+    if(this.y > 0){
+      this.y -= 15;
+    }
+    else if(this.y <= 0){
+      this.x = 200, this.y = 400; //resets player to start when reaches water
+    }
+  }
+};
 
 Player.prototype.update = function(){
-  //if this.y <= 0 reset player to start
+  if (this.y <= 0){
+    this.x = 200, this.y = 400; //resets player to start when reaches water
+  }
 };
 // Draw the *Player on the screen, required method for game
 Player.prototype.render = function() {
@@ -75,13 +92,13 @@ Player.prototype.render = function() {
 };
 
 //check for Player/bug collisions
-Player.prototype.checkCollisions = function(){
-  if (this.y == 0){
-  this.x = 200, this.y =400;
-}
-  /*else if(Player(this.x, this.y) === Enemy(this.x, this.y)){
-    reset
-  }*/
+Player.prototype.checkCollisions = function(Enemy){
+//  if (this.y == 0){
+//  this.x = 200, this.y = 400; //if player reaches water, reset to starting position
+//}
+if(Player(this.x, this.y) === Enemy(this.x, this.y)){
+    this.x = 200, this.y = 400;
+  }
 };
 
 
