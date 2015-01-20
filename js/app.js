@@ -52,33 +52,37 @@ Player.prototype.handleInput = function(allowedKeys){
       this.x -= 15;
     }
     else if(this.x < 0){
-      this.x = 200, this.y = 400; //resets player to start when reaches left border
+      player.reset();//this.x = 200, this.y = 400; //resets player to start when reaches left border
     }
   }
   if (allowedKeys === 'right'){
     if(this.x > 0){
       this.x += 15;
     }
-    else if(this.x > 400){
-      this.x = 200, this.y = 400; //resets player to start when reaches right border
+    if(this.x > 440){
+      player.reset();//this.x = 200, this.y = 400; //resets player to start when reaches right border
     }
   }
   if (allowedKeys === 'down'){
     if(this.y > 0){
       this.y += 15;
     }
-    else if(this.y >= 430){
-      this.x = 200, this.y = 400; //resets player to start when reaches bottom border
+    if(this.y >= 450){
+      player.reset();//this.x = 200, this.y = 400; //resets player to start when reaches bottom border
     }
   }
   if (allowedKeys === 'up'){
     if(this.y > 0){
       this.y -= 15;
     }
-    else if(this.y <= 0){
-      this.x = 200, this.y = 400; //resets player to start when reaches water
+      else if(this.y <= 0){
+        player.reset();//this.x = 200, this.y = 400; //resets player to start when reaches water
     }
   }
+};
+
+Player.prototype.reset = function(){
+ this.x = 200, this.y = 400;
 };
 
 Player.prototype.update = function(){
@@ -93,13 +97,14 @@ Player.prototype.render = function() {
 
 //check for Player/bug collisions
 Player.prototype.checkCollisions = function(Enemy){
-//  if (this.y == 0){
-//  this.x = 200, this.y = 400; //if player reaches water, reset to starting position
-//}
-if(Player(this.x, this.y) === Enemy(this.x, this.y)){
+  if(this.x - Enemy.x < 20 && this.y - Enemy.y < 20){
     this.x = 200, this.y = 400;
   }
 };
+/*if(Player(this.x, this.y) === Enemy(this.x, this.y)){
+    this.x = 200, this.y = 400;
+  }*/
+
 
 
 
