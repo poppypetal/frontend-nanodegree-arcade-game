@@ -14,69 +14,105 @@ Enemy.prototype.update = function(dt) {
   if (this.x >= 475){
     this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
   }
+    Enemy.prototype.checkCollisions();
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += (this.speed) * dt ;
+    //console.log("enemy update ",this.x)
+
+
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-//end Enemy js
+
+
+Enemy.prototype.checkCollisions = function(){
+var r = 40;
+for (i in allEnemies){
+  if (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <= player.y + r && allEnemies[i].y >= player.y - r){
+    player.reset();
+    }
+  }
+}
 
 
 
+
+
+/*var r = 0;
+  if ((player.y >= this.y + r) || (player.x >= this.x + r) || (player.y <= this.y + r) || (player.y <= this.y + r)){
+    player.reset();
+    //this doesn't work...yet
+  }*/
+//console.log(enemy1.x);
+
+//console.log("Player x ",player.x);
+//  if (player.x <= enemy1.x + 40 || player.x >= enemy1.x + 40 ){
+  //  console.log("player reset");
+    //player.reset();
+//if (Math.abs(this.x <= (player.x + 50)) || Math.abs(this.y <= (player.y +50))){
+// player.reset(); //doesn't work
+//}
+//if (player.y === 370 || player.x === 170){
+// player.reset();
+// //this actually works
+//}
+/*if(player.x >= this.x - 30 && player.x <= this.x + 30){
+  if(player.y >= this.y - 30 && player.y <= this.y + 30){
+    player.reset(); //this doesn't work
+  }
+}*/
+
+/*if (player.y <= this.y + 20){
+  player.reset(); //tried something simple, doesn't work
+}*/
+//};
 //start Player js
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-  this.x = 200, this.y =400;
+  this.reset();//this.x = 200, this.y =400;
   this.sprite = 'images/char-boy.png';
 };
 
-/*Player.prototype.input = function(allowedKeys){
-  if (allowedKeys === 'left'){
-  if(this.x < 0){
-  this.x = 200, this.y = 400;//produces error
-}
-else{this.x - 100;}
-}
-};*/
+
 
 Player.prototype.handleInput = function(allowedKeys){
   if (allowedKeys === 'left'){
     if(this.x > 0){
-      this.x -= 15;
+      this.x -= 20;
     }
     else if(this.x < 0){
-      player.reset();//this.x = 200, this.y = 400; //resets player to start when reaches left border
+      player.reset(); //resets player to start when reaches left border
     }
   }
   if (allowedKeys === 'right'){
     if(this.x > 0){
-      this.x += 15;
+      this.x += 20;
     }
     if(this.x > 440){
-      player.reset();//this.x = 200, this.y = 400; //resets player to start when reaches right border
+      player.reset(); //resets player to start when reaches right border
     }
   }
   if (allowedKeys === 'down'){
     if(this.y > 0){
-      this.y += 15;
+      this.y += 20;
     }
-    if(this.y >= 450){
-      player.reset();//this.x = 200, this.y = 400; //resets player to start when reaches bottom border
+    if(this.y >= 430){
+      player.reset();  //resets player to start when reaches bottom border
     }
   }
   if (allowedKeys === 'up'){
     if(this.y > 0){
-      this.y -= 15;
+      this.y -= 20;
     }
       else if(this.y <= 0){
-        player.reset();//this.x = 200, this.y = 400; //resets player to start when reaches water
+        player.reset();  //resets player to start when reaches water
     }
   }
 };
@@ -87,7 +123,7 @@ Player.prototype.reset = function(){
 
 Player.prototype.update = function(){
   if (this.y <= 0){
-    this.x = 200, this.y = 400; //resets player to start when reaches water
+    player.reset(); //this.x = 200, this.y = 400; //resets player to start when reaches water
   }
 };
 // Draw the *Player on the screen, required method for game
@@ -95,15 +131,13 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y); //copied from Enemy
 };
 
-//check for Player/bug collisions
-Player.prototype.checkCollisions = function(Enemy){
-  if(this.x - Enemy.x < 20 && this.y - Enemy.y < 20){
+//check for Player/bug collisions--don't think I need this code
+
+/*Player.prototype.checkCollisions = function(){
+  if (this.y <= 300){
     this.x = 200, this.y = 400;
   }
-};
-/*if(Player(this.x, this.y) === Enemy(this.x, this.y)){
-    this.x = 200, this.y = 400;
-  }*/
+};*/
 
 
 
@@ -115,7 +149,8 @@ Player.prototype.checkCollisions = function(Enemy){
 var enemy1 = new Enemy();
 var enemy2 = new Enemy();
 var enemy3 = new Enemy();
-var allEnemies = [enemy1,enemy2,enemy3];
+var enemy4 = new Enemy();
+var allEnemies = [enemy1,enemy2,enemy3,enemy4];
 var player = new Player();
 
 
@@ -133,45 +168,5 @@ document.addEventListener('keyup', function(e) {
 
 
 
-
-//there are 5 (width) x 6 (height) squares in the scene
-
-//dimka: each square is 101 x 83 pixels
-
-/*you can use Math.random() to generate a random speed for each bug
-
-dimka: and you should also use Math.random() to set the y position for each bug
-
-temp = Math.random();
-
-temp2=Math.random();
-
-console.log(temp);
-
-console.log(temp2);
-
-dimka: you should see different numbers because Math.random() generates a different number every time
-
-dimka: so when you call:
-
-dimka: enemy1= new Enemy(); enemy2= new Enemy(); enemy3= new Enemy();
-
-→this.y = Math.random()
-
-dimka: each time when you call Enemy() you will call Math.random() which will give you a different number
-
-dimka: Almost
-
-→this.speed=Math.random()
-
-dimka: Math.random() generates a number between 0 and 1
-
-dimka: so you will have to manipulate it to get a number in the range you want
-
-dimka: BTW, our time is up so we will have to wrap up
-
-→this.speed= function(Math.random * dt)
-
-
-dimka: but you can read more about Math.random() here: http://www.w3schools.com/jsref/jsref_random.asp
+/*dimka: but you can read more about Math.random() here: http://www.w3schools.com/jsref/jsref_random.asp
 */

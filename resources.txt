@@ -5,3 +5,6 @@ http://www.codecademy.com/en/tracks/javascript
 https://github.com/udacity/FEND_OfficeHourHelp/tree/master/ud015_OOJS
 https://developer.mozilla.org/en-US/Learn/Getting_started_with_the_web/JavaScript_basics
 http://www.w3schools.com/jsref/jsref_random.asp
+http://javascript.info/tutorial/coordinates
+https://www.udacity.com/course/viewer#!/c-cs291/l-124106599/m-175393418
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs
