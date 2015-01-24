@@ -8,6 +8,10 @@ var Enemy = function() {
   this.sprite = 'images/enemy-bug.png';
 };
 
+Enemy.prototype.start = function(){
+this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
+};
+
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -28,7 +32,7 @@ Enemy.prototype.render = function() {
 
 
 Enemy.prototype.checkCollisions = function(){
-var r = 40; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
+var r = 20; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
 for (i in allEnemies){
   if (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <= player.y + r && allEnemies[i].y >= player.y - r){ //if the bug is to the left of the player
   player.reset();
@@ -42,6 +46,7 @@ for (i in allEnemies){
 var Player = function() {
   this.reset();
   this.sprite = 'images/char-boy.png';
+  this.win = 1;
 };
 
 
@@ -88,6 +93,7 @@ Player.prototype.reset = function(){
 Player.prototype.update = function(){
   if (this.y <= 0){
     player.reset(); //resets player to start when reaches water
+  console.log("Great Job!!", this.win ++);
   }
 };
 // Draw the *Player on the screen, required method for game
