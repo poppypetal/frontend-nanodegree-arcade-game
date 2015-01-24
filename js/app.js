@@ -9,7 +9,7 @@ var Enemy = function() {
 };
 
 Enemy.prototype.start = function(){
-this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
+  this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
 };
 
 // Update the enemy's position, required method for game
@@ -17,6 +17,7 @@ this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
 Enemy.prototype.update = function(dt) {
   if (this.x >= 475){
     this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
+
   } //resets the bug to starting position & random speed when it reaches the right limit of the canvas
   Enemy.prototype.checkCollisions();
     // You should multiply any movement by the dt parameter
@@ -30,12 +31,12 @@ Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
 Enemy.prototype.checkCollisions = function(){
-var r = 20; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
-for (i in allEnemies){
-  if (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <= player.y + r && allEnemies[i].y >= player.y - r){ //if the bug is to the left of the player
-  player.reset();
+  var r = 20; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
+  for (i in allEnemies){
+  if (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <=  player.y + r && allEnemies[i].y >= player.y - r){ //if the bug is to the left of the player
+    player.reset();
+    console.log("Oops, you hit a bug!");
     }
   }
 }
@@ -45,11 +46,9 @@ for (i in allEnemies){
 // a handleInput() method.
 var Player = function() {
   this.reset();
-  this.sprite = 'images/char-boy.png';
+  this.sprite = 'images/char-horn-girl.png';
   this.win = 1;
 };
-
-
 
 Player.prototype.handleInput = function(allowedKeys){
   if (allowedKeys === 'left'){
@@ -93,7 +92,7 @@ Player.prototype.reset = function(){
 Player.prototype.update = function(){
   if (this.y <= 0){
     player.reset(); //resets player to start when reaches water
-  console.log("Great Job!!", this.win ++);
+  console.log("Great Job!! Score:", this.win ++);
   }
 };
 // Draw the *Player on the screen, required method for game
