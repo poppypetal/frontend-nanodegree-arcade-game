@@ -9,3 +9,4 @@ http://javascript.info/tutorial/coordinates
 https://www.udacity.com/course/viewer#!/c-cs291/l-124106599/m-175393418
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs
 https://github.com/search?utf8=%E2%9C%93&q=udacity+frogger
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Assignment_Operators
