@@ -1,22 +1,17 @@
-// Enemies our player must avoid
+// Enemies Class
 var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-  this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+  this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200; //defines bug's random start position and random speed
   this.sprite = 'images/enemy-bug.png';
 };
 
-Enemy.prototype.start = function(){
-  this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
-};
+//Enemy.prototype.start = function(){
+//  this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
+//};
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+// Update the enemy's position, check collisions and define random enemy speed
 Enemy.prototype.update = function(dt) {
   if (this.x >= 475){
-    this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
+    this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200; //resets the bug to random starting position and random speed
 
   } //resets the bug to starting position & random speed when it reaches the right limit of the canvas
   Enemy.prototype.checkCollisions();
@@ -26,30 +21,30 @@ Enemy.prototype.update = function(dt) {
   this.x += (this.speed) * dt ;
 };
 
-// Draw the enemy on the screen, required method for game
+// Draw the enemy on the screen
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Enemy/Player collision function
 Enemy.prototype.checkCollisions = function(){
   var r = 20; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
   for (i in allEnemies){
-  if (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <=  player.y + r && allEnemies[i].y >= player.y - r){ //if the bug is to the left of the player
+  if (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <=  player.y + r && allEnemies[i].y >= player.y - r){ //if the bug is to the left of the player or to the right of player; if the player is above or below the bug in range r, reset the player and print message to console
     player.reset();
     console.log("Oops, you hit a bug!");
     }
   }
 }
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+// Player class
 var Player = function() {
   this.reset();
   this.sprite = 'images/char-horn-girl.png';
-  this.win = 1;
+  this.win = 1; //used in the player update function for player's score
 };
 
+//Player handleInput function to move player
 Player.prototype.handleInput = function(allowedKeys){
   if (allowedKeys === 'left'){
     if(this.x > 0){
@@ -85,24 +80,27 @@ Player.prototype.handleInput = function(allowedKeys){
   }
 };
 
+//Player reset function
 Player.prototype.reset = function(){
  this.x = 200, this.y = 400;
 }; //when player.reset() is called, the player moves back to starting position
 
+// Player update function,
 Player.prototype.update = function(){
   if (this.y <= 0){
-    player.reset(); //resets player to start when reaches water
-  console.log("Great Job!! Score:", this.win ++);
+    player.reset(); //resets player to start when player reaches the water,
+    console.log("Great Job!! Score:", this.win ++); //adds 1 to the player's score printed out in the console.
   }
 };
-// Draw the *Player on the screen, required method for game
+
+// Draw the *Player on the screen
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y); //copied from Enemy
 };
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-//var enemy = Enemy();
 var enemy1 = new Enemy();
 var enemy2 = new Enemy();
 var enemy3 = new Enemy();
@@ -122,8 +120,3 @@ document.addEventListener('keyup', function(e) {
     };
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-
-
-/*dimka: but you can read more about Math.random() here: http://www.w3schools.com/jsref/jsref_random.asp
-*/
