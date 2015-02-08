@@ -5,6 +5,11 @@ Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015
 
 for self-checking their submission.
 
+This game is not live.  To download the game file please fork or clone from github:
+https://github.com/poppypetal/frontend-nanodegree-arcade-game
+
+Once you have the files on your computer, simply open up index.html in your browser to begin playing.
+
 Game Goal:
 Cross the game board without hitting any of the enemies.
 
