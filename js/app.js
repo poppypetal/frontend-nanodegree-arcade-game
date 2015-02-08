@@ -6,13 +6,10 @@ var Enemy = function() {
 
 // Update the enemy's position, check collisions and define random enemy speed
 Enemy.prototype.update = function(dt) {
-  if (this.x >= 475){
+  if (this.x >= 475) {
     this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200; //resets the bug to random starting position and random speed
-}; //resets the bug to starting position & random speed when it reaches the right limit of the canvas
+    }
   this.checkCollisions();
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
   this.x += (this.speed) * dt ;
 };
 
@@ -21,8 +18,6 @@ Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
-
 Enemy.prototype.checkCollisions = function(){
   var r = 40;
 if (this.x <= player.x + r && this.x >= player.x - r && this.y <=  player.y + r && this.y >= player.y - r){ //if the bug is to the left of the player or to the right of player; if the player is above or below the bug in range r, reset the player and print message to console
@@ -30,11 +25,6 @@ if (this.x <= player.x + r && this.x >= player.x - r && this.y <=  player.y + r 
   console.log("Oops, you hit a bug!");
 }
 };
-
-
-
-
-
 
 // Player class
 var Player = function() {
@@ -46,7 +36,7 @@ var Player = function() {
 //Player handleInput function to move player
 Player.prototype.handleInput = function(allowedKeys){
   if (allowedKeys === 'left' && this.x > 0){
-    this.x -= 20;
+    this.x -= 18;
   }
   if (allowedKeys === 'right' && this.x >= 0){
     this.x += 20;
