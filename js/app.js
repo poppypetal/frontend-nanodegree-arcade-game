@@ -9,7 +9,7 @@ Enemy.prototype.update = function(dt) {
   if (this.x >= 475){
     this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200; //resets the bug to random starting position and random speed
 }; //resets the bug to starting position & random speed when it reaches the right limit of the canvas
-  Enemy.prototype.checkCollisions();
+  this.checkCollisions();
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -21,16 +21,49 @@ Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//Enemy/Player collision function
+
+
+
+/*
 Enemy.prototype.checkCollisions = function(){
   var r = 40; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
-  for (i in allEnemies/*.length*/){
+  //var i = 0;
+  if (var i = 0; i < allEnemies.length; i++){
+  (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <=  player.y + r && allEnemies[i].y >= player.y - r)} //if the bug is to the left of the player or to the right of player; if the player is above or below the bug in range r, reset the player and print message to console
+
+    player.reset();
+    console.log("Oops, you hit a bug!");
+
+
+};*/
+
+
+Enemy.prototype.checkCollisions = function(){
+  var r = 40;
+if (this.x <= player.x + r && this.x >= player.x - r && this.y <=  player.y + r && this.y >= player.y - r){ //if the bug is to the left of the player or to the right of player; if the player is above or below the bug in range r, reset the player and print message to console
+  player.reset();
+  console.log("Oops, you hit a bug!");
+}
+};
+
+
+
+
+
+/*
+//Enemy/Player collision function
+Enemy.prototype.checkCollisions = function(){
+  var r = 20; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
+  for (i in allEnemies){
   if (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <=  player.y + r && allEnemies[i].y >= player.y - r){ //if the bug is to the left of the player or to the right of player; if the player is above or below the bug in range r, reset the player and print message to console
     player.reset();
     console.log("Oops, you hit a bug!");
     }
   }
-};
+}*/
+
+
+
 
 // Player class
 var Player = function() {
@@ -41,66 +74,27 @@ var Player = function() {
 
 //Player handleInput function to move player
 Player.prototype.handleInput = function(allowedKeys){
-
-/*  if(allowedKeys === 'right' && this.x >= 0) {
-  this.x += 20;
-}
-
-if(allowedKeys ==='left' && this.x > 0) {
-  this.x -= 20;
-}
-
-if(allowedKeys === 'down' && this.y > 0) {
-  this.y += 20;
-}
-
-if(allowedKeys === 'up' && this.y > 0) {
-  this.y -= 20;
-}
-*/
-if (allowedKeys === 'left' && this.x > 0){
+  if (allowedKeys === 'left' && this.x > 0){
     this.x -= 20;
   }
-//  else if(this.x <= 0){
-//    player.reset(); //resets player to start when reaches left side of canvas
-//}
-
-if (allowedKeys === 'right' && this.x >= 0){
+  if (allowedKeys === 'right' && this.x >= 0){
     this.x += 20;
   }
-//    else if (this.x >= 220){
-//      player.reset(); //resets player to start when reaches left side of canvas
-//    }
-
-/*
-if (allowedKeys === 'right' && this.x >= 0){
-      this.x += 20;
-    }
-    else(this.x > 420){
-      player.reset(); //resets player to start when reaches right side of canvas
-    }
-*/
-if (allowedKeys === 'down' && this.y > 0){
-  this.y += 20;
+  if (allowedKeys === 'down' && this.y > 0){
+    this.y += 20;
   }
-//  else if(this.y >= 430){
-//      player.reset();  //resets player to start when reaches bottom side of canvas
-//    }
-if (allowedKeys === 'up' && this.y > 0){
-  this.y -= 20; //do not include reset for up because the player.reset function resets player when they hit the water
+  if (allowedKeys === 'up' && this.y > 0){
+    this.y -= 20; //did not include reset for up because the player.reset function resets player when they hit the water
   }
-if (this.x >= 425 ){
-  player.reset();
-}
-
-if (this.y >= 440 ){
-  player.reset();
-}
-
-if(this.x <= 0){
-  player.reset();
-}
-
+  if (this.x >= 425 ){
+    player.reset(); //resets player to start when reaches right side of canvas
+  }
+  if (this.y >= 440 ){
+    player.reset(); //resets player to start when reaches bottom side of canvas
+  }
+  if(this.x <= 0){
+    player.reset(); //resets player to start when reaches left side of canvas
+  }
 };
 
 //Player reset function
