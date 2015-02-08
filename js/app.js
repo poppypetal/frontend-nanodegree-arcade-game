@@ -4,16 +4,11 @@ var Enemy = function() {
   this.sprite = 'images/enemy-bug.png';
 };
 
-//Enemy.prototype.start = function(){
-//  this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200;
-//};
-
 // Update the enemy's position, check collisions and define random enemy speed
 Enemy.prototype.update = function(dt) {
   if (this.x >= 475){
     this.x = 0, this.y = 230 * Math.random(), this.speed = 10 + Math.random()*200; //resets the bug to random starting position and random speed
-
-  } //resets the bug to starting position & random speed when it reaches the right limit of the canvas
+}; //resets the bug to starting position & random speed when it reaches the right limit of the canvas
   Enemy.prototype.checkCollisions();
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -28,14 +23,14 @@ Enemy.prototype.render = function() {
 
 //Enemy/Player collision function
 Enemy.prototype.checkCollisions = function(){
-  var r = 20; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
-  for (i in allEnemies){
+  var r = 40; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
+  for (i in allEnemies/*.length*/){
   if (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <=  player.y + r && allEnemies[i].y >= player.y - r){ //if the bug is to the left of the player or to the right of player; if the player is above or below the bug in range r, reset the player and print message to console
     player.reset();
     console.log("Oops, you hit a bug!");
     }
   }
-}
+};
 
 // Player class
 var Player = function() {
@@ -46,38 +41,66 @@ var Player = function() {
 
 //Player handleInput function to move player
 Player.prototype.handleInput = function(allowedKeys){
-  if (allowedKeys === 'left'){
-    if(this.x > 0){
-      this.x -= 20;
-    }
-    else if(this.x < 0){
-      player.reset(); //resets player to start when reaches left side of canvas
-    }
+
+/*  if(allowedKeys === 'right' && this.x >= 0) {
+  this.x += 20;
+}
+
+if(allowedKeys ==='left' && this.x > 0) {
+  this.x -= 20;
+}
+
+if(allowedKeys === 'down' && this.y > 0) {
+  this.y += 20;
+}
+
+if(allowedKeys === 'up' && this.y > 0) {
+  this.y -= 20;
+}
+*/
+if (allowedKeys === 'left' && this.x > 0){
+    this.x -= 20;
   }
-  if (allowedKeys === 'right'){
-    if(this.x > 0){
+//  else if(this.x <= 0){
+//    player.reset(); //resets player to start when reaches left side of canvas
+//}
+
+if (allowedKeys === 'right' && this.x >= 0){
+    this.x += 20;
+  }
+//    else if (this.x >= 220){
+//      player.reset(); //resets player to start when reaches left side of canvas
+//    }
+
+/*
+if (allowedKeys === 'right' && this.x >= 0){
       this.x += 20;
     }
-    if(this.x > 440){
+    else(this.x > 420){
       player.reset(); //resets player to start when reaches right side of canvas
     }
+*/
+if (allowedKeys === 'down' && this.y > 0){
+  this.y += 20;
   }
-  if (allowedKeys === 'down'){
-    if(this.y > 0){
-      this.y += 20;
-    }
-    if(this.y >= 430){
-      player.reset();  //resets player to start when reaches bottom side of canvas
-    }
+//  else if(this.y >= 430){
+//      player.reset();  //resets player to start when reaches bottom side of canvas
+//    }
+if (allowedKeys === 'up' && this.y > 0){
+  this.y -= 20; //do not include reset for up because the player.reset function resets player when they hit the water
   }
-  if (allowedKeys === 'up'){
-    if(this.y > 0){
-      this.y -= 20;
-    }
-      else if(this.y <= 0){
-        player.reset();  //resets player to start when reaches water
-    }
-  }
+if (this.x >= 425 ){
+  player.reset();
+}
+
+if (this.y >= 440 ){
+  player.reset();
+}
+
+if(this.x <= 0){
+  player.reset();
+}
+
 };
 
 //Player reset function
@@ -85,22 +108,20 @@ Player.prototype.reset = function(){
  this.x = 200, this.y = 400;
 }; //when player.reset() is called, the player moves back to starting position
 
-// Player update function,
+// Player update function
 Player.prototype.update = function(){
-  if (this.y <= 0){
+  if (this.y <= 0) {
     player.reset(); //resets player to start when player reaches the water,
     console.log("Great Job!! Score:", this.win ++); //adds 1 to the player's score printed out in the console.
   }
 };
 
-// Draw the *Player on the screen
+// Draw the Player on the screen
 Player.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y); //copied from Enemy
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+// Instantiate objects.
 var enemy1 = new Enemy();
 var enemy2 = new Enemy();
 var enemy3 = new Enemy();
@@ -109,8 +130,7 @@ var allEnemies = [enemy1,enemy2,enemy3,enemy4];
 var player = new Player();
 
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// This listens for key presses and sends the keys to your Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
