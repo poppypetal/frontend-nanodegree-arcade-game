@@ -23,21 +23,6 @@ Enemy.prototype.render = function() {
 
 
 
-
-/*
-Enemy.prototype.checkCollisions = function(){
-  var r = 40; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
-  //var i = 0;
-  if (var i = 0; i < allEnemies.length; i++){
-  (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <=  player.y + r && allEnemies[i].y >= player.y - r)} //if the bug is to the left of the player or to the right of player; if the player is above or below the bug in range r, reset the player and print message to console
-
-    player.reset();
-    console.log("Oops, you hit a bug!");
-
-
-};*/
-
-
 Enemy.prototype.checkCollisions = function(){
   var r = 40;
 if (this.x <= player.x + r && this.x >= player.x - r && this.y <=  player.y + r && this.y >= player.y - r){ //if the bug is to the left of the player or to the right of player; if the player is above or below the bug in range r, reset the player and print message to console
@@ -47,20 +32,6 @@ if (this.x <= player.x + r && this.x >= player.x - r && this.y <=  player.y + r 
 };
 
 
-
-
-
-/*
-//Enemy/Player collision function
-Enemy.prototype.checkCollisions = function(){
-  var r = 20; //defines the range where collision occurs larger numbers for added difficulty, smaller numbers for beginner.
-  for (i in allEnemies){
-  if (allEnemies[i].x <= player.x + r && allEnemies[i].x >= player.x - r && allEnemies[i].y <=  player.y + r && allEnemies[i].y >= player.y - r){ //if the bug is to the left of the player or to the right of player; if the player is above or below the bug in range r, reset the player and print message to console
-    player.reset();
-    console.log("Oops, you hit a bug!");
-    }
-  }
-}*/
 
 
 
